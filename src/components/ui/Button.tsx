@@ -34,7 +34,6 @@ interface ButtonProps
   isLoading?: boolean;
 }
 
-// eslint-disable-next-line react/display-name
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, children, isLoading, ...props }, ref) => {
     return (
