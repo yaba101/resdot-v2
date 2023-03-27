@@ -6,7 +6,7 @@ import {
   useUser,
 } from "@clerk/nextjs";
 const Header = () => {
-  const { user, isSignedIn } = useUser();
+  const { user } = useUser();
 
   return (
     <div className="bg-gray-800 pt-8 pb-8 lg:pb-16">

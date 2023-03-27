@@ -23,24 +23,6 @@ export function Toast({ visible, className, ...props }: ToastProps) {
   );
 }
 
-// interface ToastIconProps extends Partial<React.SVGProps<SVGSVGElement>> {
-//   name: keyof typeof Icons;
-// }
-
-// Toast.Icon = function ToastIcon({ name, className, ...props }: ToastIconProps) {
-//   // const Icon = Icons[name];
-
-//   // if (!Icon) {
-//   //   return null;
-//   // }
-
-//   return (
-//     <div className="flex h-20 w-20 items-center justify-center rounded-full bg-slate-100">
-//       {/* <Icon className={cn("h-10 w-10", className)} {...props} /> */}
-//     </div>
-//   );
-// };
-
 type ToastTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 Toast.Title = function ToastTitle({ className, ...props }: ToastTitleProps) {
