@@ -43,10 +43,10 @@ model Feedbacks {
     star        String
     identity    String @default("Anonymous")
 
-    roomList  RoomList? @relation(fields: [roomUrlId], references: [roomUrl])
-    roomUrlId String?
+    roomList  RoomList? @relation(fields: [roomUrl], references: [roomUrl])
+    roomUrl   String?
     createdAt DateTime  @default(now())
     updatedAt DateTime  @default(now())
 
-    @@index([roomUrlId])
+    @@index([roomUrl])
 }

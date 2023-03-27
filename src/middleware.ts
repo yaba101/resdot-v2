@@ -3,7 +3,6 @@ import { NextResponse } from "next/server"
 
 
 export default withClerkMiddleware(() => {
-    console.log('running')
     return NextResponse.next()
 })
 

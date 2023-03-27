@@ -2,33 +2,24 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer aria-label="Site Footer" className="  bg-white dark:bg-gray-900">
+    <footer aria-label="Site Footer" className="bg-white dark:bg-gray-900">
       <div className="  mt-16 border-t border-gray-100 pt-8 dark:border-gray-800 sm:flex sm:items-center sm:justify-between lg:mt-24">
         <nav aria-label="Footer Navigation - Support">
           <ul className="flex flex-wrap justify-center gap-4 text-xs lg:justify-end">
             <li>
-              <a
-                href="#"
-                className="text-gray-500 transition hover:opacity-75 dark:text-gray-400"
-              >
+              <a className="text-gray-500 transition hover:opacity-75 dark:text-gray-400">
                 Terms & Conditions
               </a>
             </li>
 
             <li>
-              <a
-                href="#"
-                className="text-gray-500 transition hover:opacity-75 dark:text-gray-400"
-              >
+              <a className="text-gray-500 transition hover:opacity-75 dark:text-gray-400">
                 Privacy Policy
               </a>
             </li>
 
             <li>
-              <a
-                href="#"
-                className="text-gray-500 transition hover:opacity-75 dark:text-gray-400"
-              >
+              <a className="text-gray-500 transition hover:opacity-75 dark:text-gray-400">
                 Cookies
               </a>
             </li>
