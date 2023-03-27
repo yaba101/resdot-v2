@@ -3,7 +3,7 @@ import RoomList from "@/components/RoomList";
 
 const Dashboard = () => {
   return (
-    <div className="h-screen">
+    <div className="h-screen overflow-hidden">
       <Header />
       <RoomList />
     </div>

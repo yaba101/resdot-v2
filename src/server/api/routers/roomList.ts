@@ -12,7 +12,7 @@ const defaultRoomListSelect = Prisma.validator<Prisma.RoomListSelect>()({
     email: true,
 })
 
-export const roomListRouter = createTRPCRouter({
+export const roomList = createTRPCRouter({
     list: publicProcedure
         .input(
             z.object({

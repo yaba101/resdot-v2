@@ -9,8 +9,8 @@ const Header = () => {
   const { user } = useUser();
 
   return (
-    <div className="bg-gray-800 pt-8 pb-8 lg:pb-16">
-      <div className="container mx-auto mt-10 flex flex-col items-start justify-between px-6 lg:flex-row lg:items-center">
+    <div className=" bg-slate-900">
+      <div className="container mx-auto flex flex-col items-start justify-between p-10 px-6 lg:flex-row lg:items-center">
         <div className="flex flex-col items-start lg:flex-row lg:items-center">
           <div className="flex items-center">
             <div>
@@ -36,6 +36,7 @@ const Header = () => {
           </SignedOut>
         </div>
       </div>
+      <div className="border-b border-b-amber-400"></div>
     </div>
   );
 };
