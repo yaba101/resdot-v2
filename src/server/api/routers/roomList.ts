@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc"
+import { createTRPCRouter, privateProcedure } from "@/server/api/trpc"
 import { Prisma } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 
@@ -13,7 +13,7 @@ const defaultRoomListSelect = Prisma.validator<Prisma.RoomListSelect>()({
 })
 
 export const roomList = createTRPCRouter({
-    list: publicProcedure
+    list: privateProcedure
         .input(
             z.object({
                 limit: z.number().min(1).max(100).nullish(),
@@ -55,7 +55,7 @@ export const roomList = createTRPCRouter({
                 nextCursor,
             }
         }),
-    byId: publicProcedure
+    byId: privateProcedure
         .input(
             z.object({
                 id: z.string(),
@@ -77,7 +77,7 @@ export const roomList = createTRPCRouter({
             }
             return roomList
         }),
-    byRoomUrl: publicProcedure
+    byRoomUrl: privateProcedure
         .input(
             z.object({
                 roomUrl: z.string(),
@@ -99,7 +99,7 @@ export const roomList = createTRPCRouter({
             }
             return roomList
         }),
-    add: publicProcedure
+    add: privateProcedure
         .input(
             z.object({
                 id: z.string().cuid().optional(),
@@ -116,7 +116,7 @@ export const roomList = createTRPCRouter({
             })
             return roomList
         }),
-    delete: publicProcedure
+    delete: privateProcedure
         .input(
             z.object({
                 id: z.string(),
@@ -130,7 +130,7 @@ export const roomList = createTRPCRouter({
             })
             return deleteList
         }),
-    edit: publicProcedure
+    edit: privateProcedure
         .input(
             z.object({
                 id: z.string(),

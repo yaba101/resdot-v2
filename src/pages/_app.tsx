@@ -2,6 +2,7 @@ import { type AppType } from "next/app";
 import { useRouter } from "next/router";
 import { api } from "@/utils/api";
 import "@/styles/globals.css";
+import { dark } from "@clerk/themes";
 import {
   SignedIn,
   SignedOut,
@@ -14,7 +15,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   const isPublic = ["/"].includes(pathname);
 
   return (
-    <ClerkProvider {...pageProps}>
+    <ClerkProvider {...pageProps} appearance={{ baseTheme: dark }}>
       {isPublic && <Component {...pageProps} />}
       {!isPublic && (
         <>
