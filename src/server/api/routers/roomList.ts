@@ -116,11 +116,8 @@ export const roomList = createTRPCRouter({
             const currentUserId = ctx.currentUserId
             const roomList = await ctx.prisma.roomList.create({
                 data: {
-                    user: {
-                        connect: {
-                            userId: currentUserId
-                        }
-                    },
+
+                    userId: currentUserId,
                     title: input.title,
                     description: input.description,
                     roomUrl: input.roomUrl,

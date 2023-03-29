@@ -11,20 +11,41 @@ import {
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { Textarea } from "@/components/ui/TextArea";
-import { useState } from "react";
+import { api } from "@/utils/api";
+import { useUser } from "@clerk/nextjs";
+import { Loader2 } from "lucide-react";
 
-export function CreateModal() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+type ModalProps = {
+  title: string;
+  setTitle: (value: string) => void;
+  description: string;
+  setDescription: (value: string) => void;
+  actionTitle: string;
+};
+
+export function Modal({
+  title,
+  description,
+  actionTitle,
+  setDescription,
+  setTitle,
+}: ModalProps) {
+  const { user } = useUser();
+  const ctx = api.useContext();
+  const { mutate, isLoading: isCreating } = api.roomList.add.useMutation({
+    onSuccess: () => {
+      void ctx.roomList.invalidate();
+    },
+  });
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Create Room</Button>
+        <Button variant="outline">{actionTitle} Room</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create</DialogTitle>
+          <DialogTitle>{actionTitle}</DialogTitle>
           <DialogDescription>
             Click save when {"you're"} done.
           </DialogDescription>
@@ -53,9 +74,29 @@ export function CreateModal() {
             />
           </div>
         </div>
-        <DialogFooter className="flex items-end justify-between">
-          <Button type="submit">Cancel</Button>
-          <Button type="submit">Save changes</Button>
+        <DialogFooter>
+          <Button
+            disabled={isCreating}
+            type="submit"
+            onClick={() => {
+              mutate({
+                title: title,
+                description: description,
+                userId: user?.id ?? "",
+              });
+              setTitle("");
+              setDescription("");
+            }}
+          >
+            {isCreating ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Save changes
+              </>
+            ) : (
+              <>Save changes</>
+            )}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

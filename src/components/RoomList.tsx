@@ -3,9 +3,12 @@ import React, { Fragment, useState } from "react";
 import PaginationButtons from "@/components/PaginationButtons";
 import { api } from "@/utils/api";
 import { useUser } from "@clerk/nextjs";
-import { CreateModal } from "./Modal";
+import { Modal } from "./Modal";
 
 const RoomList = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [actionTitle, setActionTitle] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const PER_PAGE = 5;
 
@@ -37,11 +40,19 @@ const RoomList = () => {
       void ctx.roomList.invalidate();
     },
   });
+  console.log({ title, description });
+  console.log("userID", user?.id);
 
   return (
     <>
       <div className="flex h-screen flex-col items-center bg-gradient-to-t from-zinc-800 via-emerald-900 to-gray-900 pt-10">
-        <CreateModal />
+        <Modal
+          title={title}
+          setTitle={setTitle}
+          description={description}
+          setDescription={setDescription}
+          actionTitle="Create"
+        />
 
         <div className="mt-8  rounded-lg border bg-white p-10 shadow-inner shadow-zinc-900 dark:border-gray-700 dark:bg-gray-800 sm:p-6">
           <h5 className="mb-3 text-base font-semibold text-gray-900 dark:text-white md:text-xl">
