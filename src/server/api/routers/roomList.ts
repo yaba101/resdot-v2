@@ -9,7 +9,7 @@ const defaultRoomListSelect = Prisma.validator<Prisma.RoomListSelect>()({
     title: true,
     description: true,
     roomUrl: true,
-    email: true,
+    userId: true,
 })
 
 export const roomList = createTRPCRouter({
@@ -29,12 +29,15 @@ export const roomList = createTRPCRouter({
 
             const limit = input.limit ?? 50
             const { cursor } = input
+            const currentUserId = ctx.currentUserId
 
             const rooms = await ctx.prisma.roomList.findMany({
                 select: defaultRoomListSelect,
                 // get an extra item at the end which we'll use as next cursor
                 take: limit + 1,
-                where: {},
+                where: {
+                    userId: currentUserId
+                },
                 cursor: cursor
                     ? {
                         id: cursor,
@@ -58,21 +61,21 @@ export const roomList = createTRPCRouter({
     byId: privateProcedure
         .input(
             z.object({
-                id: z.string(),
+                userId: z.string(),
             })
         )
         .query(async ({ input, ctx }) => {
-            const { id } = input
-            const roomList = await ctx.prisma.roomList.findUnique({
+            const { userId } = input
+            const roomList = await ctx.prisma.roomList.findFirst({
                 where: {
-                    id,
+                    userId,
                 },
                 select: defaultRoomListSelect,
             })
             if (!roomList) {
                 throw new TRPCError({
                     code: 'NOT_FOUND',
-                    message: `No room with id:'${id}'`,
+                    message: `No room with id:'${userId}'`,
                 })
             }
             return roomList
@@ -103,16 +106,27 @@ export const roomList = createTRPCRouter({
         .input(
             z.object({
                 id: z.string().cuid().optional(),
+                userId: z.string(),
                 title: z.string().min(1).max(32),
                 description: z.string().min(1),
                 roomUrl: z.string().cuid().optional(),
-                email: z.string().optional(),
             })
         )
         .mutation(async ({ input, ctx }) => {
+            const currentUserId = ctx.currentUserId
             const roomList = await ctx.prisma.roomList.create({
-                data: input,
-                select: defaultRoomListSelect,
+                data: {
+                    user: {
+                        connect: {
+                            userId: currentUserId
+                        }
+                    },
+                    title: input.title,
+                    description: input.description,
+                    roomUrl: input.roomUrl,
+                },
+
+
             })
             return roomList
         }),
@@ -122,10 +136,11 @@ export const roomList = createTRPCRouter({
                 id: z.string(),
             })
         )
-        .mutation(async ({ input, ctx }) => {
+        .mutation(async ({ ctx }) => {
+            const currentUserId = ctx.currentUserId
             const deleteList = await ctx.prisma.roomList.delete({
                 where: {
-                    id: input.id,
+                    id: currentUserId,
                 },
             })
             return deleteList
@@ -137,12 +152,12 @@ export const roomList = createTRPCRouter({
                 title: z.string().min(1).max(32),
                 description: z.string().min(1),
                 roomUrl: z.string().optional(),
-                email: z.string().optional(),
             })
         ).mutation(async ({ input, ctx }) => {
+            const currentUserId = ctx.currentUserId
             const editList = await ctx.prisma.roomList.update({
                 where: {
-                    id: input.id
+                    id: currentUserId
                 },
                 data: input,
 

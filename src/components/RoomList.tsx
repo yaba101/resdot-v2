@@ -3,10 +3,14 @@ import React, { Fragment, useState } from "react";
 import PaginationButtons from "@/components/PaginationButtons";
 import Button, { buttonVariants } from "./ui/Button";
 import { api } from "@/utils/api";
+import { useUser } from "@clerk/nextjs";
 
 const RoomList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const PER_PAGE = 5;
+
+  const { user } = useUser();
+  console.log(user?.id);
 
   const roomListQuery = api.roomList.list.useInfiniteQuery(
     {
@@ -25,6 +29,14 @@ const RoomList = () => {
   const maxPage = Math.ceil((pageLength as unknown as number) / PER_PAGE);
   const begin = (currentPage - 1) * PER_PAGE;
   const end = begin + PER_PAGE;
+
+  const ctx = api.useContext();
+
+  const { mutate } = api.roomList.add.useMutation({
+    onSuccess: () => {
+      void ctx.roomList.invalidate();
+    },
+  });
 
   return (
     <>
@@ -73,6 +85,19 @@ const RoomList = () => {
             </Fragment>
           ))}
         </div>
+        <button
+          onClick={() => {
+            if (user) {
+              mutate({
+                title: "awesome",
+                description: "hello motherfucker",
+                userId: user?.id,
+              });
+            }
+          }}
+        >
+          Post
+        </button>
         <PaginationButtons
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
