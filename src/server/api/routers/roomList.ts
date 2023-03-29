@@ -128,16 +128,11 @@ export const roomList = createTRPCRouter({
             return roomList
         }),
     delete: privateProcedure
-        .input(
-            z.object({
-                id: z.string(),
-            })
-        )
         .mutation(async ({ ctx }) => {
             const currentUserId = ctx.currentUserId
             const deleteList = await ctx.prisma.roomList.delete({
                 where: {
-                    id: currentUserId,
+                    userId: currentUserId,
                 },
             })
             return deleteList
@@ -154,7 +149,7 @@ export const roomList = createTRPCRouter({
             const currentUserId = ctx.currentUserId
             const editList = await ctx.prisma.roomList.update({
                 where: {
-                    id: currentUserId
+                    userId: currentUserId
                 },
                 data: input,
 
