@@ -76,7 +76,7 @@ export function Modal({
         </div>
         <DialogFooter>
           <Button
-            disabled={isCreating}
+            disabled={isCreating || title === "" || description === ""}
             type="submit"
             onClick={() => {
               mutate({
