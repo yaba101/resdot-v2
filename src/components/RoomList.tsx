@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import PaginationButtons from "@/components/PaginationButtons";
 import { api } from "@/utils/api";
 import { Modal } from "./Modal";
+import { DropDown } from "./DropDown";
 
 const RoomList = () => {
   const [title, setTitle] = useState<string>("");
@@ -62,13 +63,16 @@ const RoomList = () => {
                   <li className="grow ">
                     <Link
                       href={`/room/${item.roomUrl}`}
-                      className="group flex items-center rounded-lg bg-gray-50 p-3 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
+                      className="group flex items-center rounded-lg bg-gray-50 p-2 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
                     >
-                      <span className="ml-3 flex-1 whitespace-nowrap">
+                      <span className="ml-2 flex-1 whitespace-nowrap">
                         {item.title}
                       </span>
+                      <span className="font-serif text-xl">&rarr;</span>
                     </Link>
                   </li>
+
+                  <DropDown />
                 </div>
               </ul>
             ))}
