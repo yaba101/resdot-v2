@@ -11,28 +11,15 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model User {
-    id            String     @id @default(cuid())
-    name          String?
-    email         String?    @unique
-    emailVerified DateTime?
-    image         String?
-    roomlist      RoomList[]
-}
-
 model RoomList {
-    id          String @id @default(cuid())
+    id          String      @id @default(cuid())
     title       String
     description String
-    roomUrl     String @unique @default(cuid())
-
-    user      User?       @relation(fields: [email], references: [email])
-    email     String?
-    feedbacks Feedbacks[]
-    createdAt DateTime    @default(now())
-    updatedAt DateTime    @default(now())
-
-    @@index([email])
+    userId      String
+    roomUrl     String      @unique @default(cuid())
+    feedbacks   Feedbacks[]
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @default(now())
 }
 
 model Feedbacks {
