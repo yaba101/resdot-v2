@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PaginationButtons from "@/components/PaginationButtons";
 import { api } from "@/utils/api";
 import { Modal } from "./Modal";
@@ -8,7 +8,6 @@ import { DropDown } from "./DropDown";
 const RoomList = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [actionTitle, setActionTitle] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const PER_PAGE = 5;
@@ -24,6 +23,15 @@ const RoomList = () => {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     }
   );
+  const ctx = api.useContext();
+  // prefetch the room details for instant navigation
+  useEffect(() => {
+    const allRoom =
+      roomListQuery.data?.pages.flatMap((page) => page.items) ?? [];
+    for (const { id } of allRoom) {
+      void ctx.roomList.byId.prefetch({ id });
+    }
+  }, [ctx, roomListQuery.data?.pages]);
 
   const pageLength = roomListQuery.data?.pages.map((page) => page.items.length);
 
