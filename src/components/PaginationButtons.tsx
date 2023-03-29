@@ -43,9 +43,9 @@ const PaginationButtons = ({
         onClick={() =>
           setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage))
         }
-        disabled={currentPage === maxPage}
+        disabled={currentPage === maxPage || currentPage === 1}
         className={`ml-10 flex justify-between py-2 px-4 text-sm font-medium ${
-          currentPage === maxPage
+          currentPage === maxPage || currentPage === 1
             ? "cursor-not-allowed rounded-lg border border-gray-300 bg-white text-gray-100  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-300"
             : " rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         }`}

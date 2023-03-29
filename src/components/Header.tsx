@@ -9,7 +9,7 @@ const Header = () => {
   const { user } = useUser();
 
   return (
-    <div className=" bg-slate-900">
+    <div className=" overflow-auto bg-slate-900">
       <div className="container mx-auto flex flex-col items-start justify-between p-10 px-6 lg:flex-row lg:items-center">
         <div className="flex flex-col items-start lg:flex-row lg:items-center">
           <div className="flex items-center">
