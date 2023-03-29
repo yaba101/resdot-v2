@@ -43,7 +43,7 @@ export function SideModal({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="link" onClick={() => setCloseModal(true)}>
+        <Button variant="link" size="sm" onClick={() => setCloseModal(true)}>
           <Edit className="cursor-pointer text-white" />
         </Button>
       </SheetTrigger>

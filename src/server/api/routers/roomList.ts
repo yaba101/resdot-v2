@@ -61,21 +61,21 @@ export const roomList = createTRPCRouter({
     byId: privateProcedure
         .input(
             z.object({
-                roomUrl: z.string(),
+                id: z.string(),
             })
         )
         .query(async ({ input, ctx }) => {
-            const { roomUrl } = input
+            const { id } = input
             const roomList = await ctx.prisma.roomList.findUnique({
                 where: {
-                    roomUrl,
+                    id,
                 },
                 select: defaultRoomListSelect,
             })
             if (!roomList) {
                 throw new TRPCError({
                     code: 'NOT_FOUND',
-                    message: `No room with id:'${roomUrl}'`,
+                    message: `No room with id:'${id}'`,
                 })
             }
             return roomList

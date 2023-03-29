@@ -1,24 +1,22 @@
-import { Trash2, Edit2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/DropDownMenu";
-import { api } from "@/utils/api";
+import DeleteRoom from "@/components/DeleteRoom";
 
 type DropDownProps = {
   id: string;
+  //   title: string;
+  //   description: string;
+  //   openSideModal: boolean;
+  //   setOpenSideModal: (value: boolean) => void;
 };
 export function DropDown({ id }: DropDownProps) {
-  const ctx = api.useContext();
+  //   const [currentTitle, setCurrentTitle] = useState(title);
+  //   const [currentDescription, setCurrentDescription] = useState(description);
 
-  const { mutate: deleteRoom } = api.roomList.delete.useMutation({
-    onSuccess: () => {
-      void ctx.roomList.invalidate();
-    },
-  });
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,26 +34,16 @@ export function DropDown({ id }: DropDownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => {
-            deleteRoom({
-              id,
-            });
-          }}
-        >
-          <Edit2 className="mr-2 h-4 w-4" />
-          <span>Edit</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            deleteRoom({
-              id,
-            });
-          }}
-        >
-          <Trash2 className="mr-2 h-4 w-4" />
-          <span>Delete</span>
-        </DropdownMenuItem>
+        {/* <EditRoom
+          id={id}
+          title={currentTitle}
+          description={currentDescription}
+          setTitle={setCurrentTitle}
+          setDescription={setCurrentDescription}
+          openSideModal={openSideModal}
+          setOpenSideModal={setOpenSideModal}
+        /> */}
+        <DeleteRoom id={id} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
