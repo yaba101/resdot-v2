@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
 import PaginationButtons from "@/components/PaginationButtons";
-import Button, { buttonVariants } from "./ui/Button";
 import { api } from "@/utils/api";
 import { useUser } from "@clerk/nextjs";
+import { CreateModal } from "./Modal";
 
 const RoomList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,14 +41,7 @@ const RoomList = () => {
   return (
     <>
       <div className="flex h-screen flex-col items-center bg-gradient-to-t from-zinc-800 via-emerald-900 to-gray-900 pt-10">
-        <Button
-          className={buttonVariants({
-            variant: "ghost",
-            className: "text-black",
-          })}
-        >
-          Create New Room
-        </Button>
+        <CreateModal />
 
         <div className="mt-8  rounded-lg border bg-white p-10 shadow-inner shadow-zinc-900 dark:border-gray-700 dark:bg-gray-800 sm:p-6">
           <h5 className="mb-3 text-base font-semibold text-gray-900 dark:text-white md:text-xl">
