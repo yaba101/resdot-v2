@@ -44,7 +44,6 @@ export function Modal({
       setCloseModal(false);
     },
   });
-  console.log({ closeModal });
   return (
     <>
       <Dialog>
@@ -55,6 +54,7 @@ export function Modal({
         </DialogTrigger>
         {closeModal ? (
           <>
+            {" "}
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>{actionTitle}</DialogTitle>
