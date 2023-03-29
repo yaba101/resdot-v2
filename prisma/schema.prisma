@@ -15,7 +15,7 @@ model RoomList {
     id          String      @id @default(cuid())
     title       String
     description String
-    userId      String
+    userId      String      @unique
     roomUrl     String      @unique @default(cuid())
     feedbacks   Feedbacks[]
     createdAt   DateTime    @default(now())
