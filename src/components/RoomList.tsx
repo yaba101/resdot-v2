@@ -72,7 +72,7 @@ const RoomList = () => {
                     </Link>
                   </li>
 
-                  <DropDown />
+                  <DropDown id={item.id} />
                 </div>
               </ul>
             ))}

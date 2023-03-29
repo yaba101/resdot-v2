@@ -109,18 +109,17 @@ export const roomList = createTRPCRouter({
                 userId: z.string(),
                 title: z.string().min(1).max(32),
                 description: z.string().min(1),
-                roomUrl: z.string().cuid().optional(),
+
             })
         )
         .mutation(async ({ input, ctx }) => {
             const currentUserId = ctx.currentUserId
             const roomList = await ctx.prisma.roomList.create({
                 data: {
-
                     userId: currentUserId,
                     title: input.title,
                     description: input.description,
-                    roomUrl: input.roomUrl,
+
                 },
 
 
@@ -128,11 +127,14 @@ export const roomList = createTRPCRouter({
             return roomList
         }),
     delete: privateProcedure
-        .mutation(async ({ ctx }) => {
-            const currentUserId = ctx.currentUserId
+        .input(z.object({
+            id: z.string()
+        }))
+        .mutation(async ({ input, ctx }) => {
             const deleteList = await ctx.prisma.roomList.delete({
                 where: {
-                    userId: currentUserId,
+                    id: input.id,
+
                 },
             })
             return deleteList
@@ -146,10 +148,9 @@ export const roomList = createTRPCRouter({
                 roomUrl: z.string().optional(),
             })
         ).mutation(async ({ input, ctx }) => {
-            const currentUserId = ctx.currentUserId
             const editList = await ctx.prisma.roomList.update({
                 where: {
-                    userId: currentUserId
+                    id: input.id
                 },
                 data: input,
 

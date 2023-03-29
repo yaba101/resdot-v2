@@ -6,8 +6,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/DropDownMenu";
+import { api } from "@/utils/api";
 
-export function DropDown() {
+type DropDownProps = {
+  id: string;
+};
+export function DropDown({ id }: DropDownProps) {
+  const ctx = api.useContext();
+
+  const { mutate: deleteRoom } = api.roomList.delete.useMutation({
+    onSuccess: () => {
+      void ctx.roomList.invalidate();
+    },
+  });
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,11 +36,23 @@ export function DropDown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            deleteRoom({
+              id,
+            });
+          }}
+        >
           <Edit2 className="mr-2 h-4 w-4" />
           <span>Edit</span>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            deleteRoom({
+              id,
+            });
+          }}
+        >
           <Trash2 className="mr-2 h-4 w-4" />
           <span>Delete</span>
         </DropdownMenuItem>
