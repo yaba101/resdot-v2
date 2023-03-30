@@ -9,10 +9,11 @@ import { SideModal } from "@/components/SideModal";
 const RoomPage = () => {
   const { query } = useRouter();
 
-  const { data, isLoading } = api.roomList.byRoomUrl.useQuery({
-    roomUrl: (query.id as string) ?? "",
+  const { data, isLoading, isError } = api.roomList.byRoomUrl.useQuery({
+    roomUrl: (query.slug as string) ?? "",
   });
-  if (!data?.roomUrl) return null;
+  // TODO: proper error message here
+  if (isError) return <div className="">There has been a Error</div>;
   return (
     <>
       {isLoading ? (
@@ -49,7 +50,7 @@ const RoomPage = () => {
               <Input
                 className="mx-auto w-96 shadow-2xl"
                 readOnly
-                value={data.roomUrl ?? ""}
+                value={`feedback/${data.roomUrl ?? ""}`}
                 placeholder="This is the roomurl"
               />
               {!isLoading ? (
