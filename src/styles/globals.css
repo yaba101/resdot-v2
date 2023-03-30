@@ -1,6 +1,6 @@
 :root {
-  --primary: rebeccapurple;
-  --secondary: cornflowerblue;
+  --primary: #35434;
+  --secondary: #455;
 }
 
 @tailwind base;

@@ -6,6 +6,7 @@ import { TRPCError } from '@trpc/server'
 
 const defaultRoomListSelect = Prisma.validator<Prisma.RoomListSelect>()({
     id: true,
+    username: true,
     title: true,
     description: true,
     roomUrl: true,
@@ -21,12 +22,6 @@ export const roomList = createTRPCRouter({
             })
         )
         .query(async ({ input, ctx }) => {
-            /**
-             * For pagination docs you can have a look here
-             * @see https://trpc.io/docs/useInfiniteQuery
-             * @see https://www.prisma.io/docs/concepts/components/prisma-client/pagination
-             */
-
             const limit = input.limit ?? 50
             const { cursor } = input
             const currentUserId = ctx.currentUserId
@@ -84,13 +79,16 @@ export const roomList = createTRPCRouter({
         .input(
             z.object({
                 roomUrl: z.string(),
+
             })
         )
         .query(async ({ input, ctx }) => {
+
             const { roomUrl } = input
             const roomList = await ctx.prisma.roomList.findUnique({
                 where: {
                     roomUrl,
+
                 },
                 select: defaultRoomListSelect
             })
@@ -120,6 +118,7 @@ export const roomList = createTRPCRouter({
                     title: input.title,
                     description: input.description,
 
+
                 },
 
 
@@ -131,9 +130,11 @@ export const roomList = createTRPCRouter({
             id: z.string()
         }))
         .mutation(async ({ input, ctx }) => {
+
             const deleteList = await ctx.prisma.roomList.delete({
                 where: {
                     id: input.id,
+
 
                 },
             })
