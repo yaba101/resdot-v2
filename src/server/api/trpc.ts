@@ -47,11 +47,13 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const { req } = opts
   const currentSession = getAuth(req)
   const currentUserId = currentSession.userId
+  const username = currentSession?.user?.username
 
 
   return {
     prisma,
-    currentUserId
+    currentUserId,
+    username
   }
 }
 
@@ -108,7 +110,7 @@ const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
     throw new TRPCError({ code: 'UNAUTHORIZED' })
   }
   return next({
-    ctx: { currentUserId: ctx.currentUserId, }
+    ctx: { currentUserId: ctx.currentUserId, username: ctx.username }
   })
 })
 export const privateProcedure = t.procedure.use(enforceUserIsAuthed)

@@ -23,7 +23,7 @@ export const feedback = createTRPCRouter({
             z.object({
                 limit: z.number().min(1).max(100).nullish(),
                 cursor: z.string().nullish(),
-                roomUrlId: z.string()
+                roomUrl: z.string()
             })
         )
         .query(async ({ input, ctx }) => {
@@ -36,7 +36,7 @@ export const feedback = createTRPCRouter({
 
                 take: limit + 1,
                 where: {
-                    roomUrl: input.roomUrlId
+                    roomUrl: input.roomUrl
                 },
                 cursor: cursor
                     ? {
@@ -88,7 +88,7 @@ export const feedback = createTRPCRouter({
                 description: z.string(),
                 message: z.string(),
                 star: z.string(),
-                roomUrlId: z.string(),
+                roomUrl: z.string(),
                 identity: z.string().optional().default('Anonymous')
 
             })
