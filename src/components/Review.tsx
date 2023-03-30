@@ -82,7 +82,7 @@ const FeedBackReview = ({
               className="resize-none rounded-md p-4 dark:bg-gray-900 dark:text-gray-100"
             />
             <Button
-              disabled={isPosting || feedBackMessage === ""}
+              disabled={isPosting || feedBackMessage === "" || rating === 0}
               size="lg"
               className={buttonVariants({
                 variant: "default",
