@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import PaginationButtons from "@/components/PaginationButtons";
 import { api } from "@/utils/api";
 import { Modal } from "./Modal";
