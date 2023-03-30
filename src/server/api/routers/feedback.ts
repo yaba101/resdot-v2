@@ -58,24 +58,24 @@ export const feedback = createTRPCRouter({
                 nextCursor,
             }
         }),
-    byId: privateProcedure
+    byRoomUrl: privateProcedure
         .input(
             z.object({
-                id: z.string(),
+                roomUrl: z.string(),
             })
         )
         .query(async ({ input, ctx }) => {
-            const { id } = input
-            const feedback = await ctx.prisma.feedbacks.findUnique({
+            const { roomUrl } = input
+            const feedback = await ctx.prisma.feedbacks.findMany({
                 where: {
-                    id,
+                    roomUrl,
                 },
                 select: defaultFeedbacksSelect,
             })
             if (!feedback) {
                 throw new TRPCError({
                     code: 'NOT_FOUND',
-                    message: `No room with id:'${id}'`,
+                    message: `No room with id:'${roomUrl}'`,
                 })
             }
             return feedback
