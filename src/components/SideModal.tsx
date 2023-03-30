@@ -21,12 +21,7 @@ type SideModalProps = {
   description: string;
   id: string;
 };
-export function SideModal({
-  title,
-  description,
-
-  id,
-}: SideModalProps) {
+export function SideModal({ title, description, id }: SideModalProps) {
   const [closeModal, setCloseModal] = useState<boolean>(false);
   const [currentTitle, setCurrentTitle] = useState(title);
   const [currentDescription, setCurrentDescription] = useState(description);
@@ -59,7 +54,7 @@ export function SideModal({
             </SheetHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="title" className="text-right">
+                <Label htmlFor="title" className="text-right text-white">
                   Title
                 </Label>
                 <Input
@@ -69,7 +64,7 @@ export function SideModal({
                   className="col-span-3"
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
+              <div className="grid grid-cols-4 items-center gap-4 text-white">
                 <Label htmlFor="description" className="text-right">
                   Description
                 </Label>
@@ -77,7 +72,7 @@ export function SideModal({
                   id="description"
                   value={currentDescription}
                   onChange={(e) => setCurrentDescription(e.target.value)}
-                  className="col-span-3"
+                  className="col-span-3 text-white"
                 />
               </div>
             </div>
