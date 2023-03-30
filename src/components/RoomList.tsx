@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import PaginationButtons from "@/components/PaginationButtons";
 import { api } from "@/utils/api";
 import { Modal } from "./Modal";
@@ -24,14 +24,6 @@ const RoomList = () => {
     }
   );
   const ctx = api.useContext();
-  // prefetch the room details for instant navigation
-  useEffect(() => {
-    const allRoom =
-      roomListQuery.data?.pages.flatMap((page) => page.items) ?? [];
-    for (const { id } of allRoom) {
-      void ctx.roomList.byId.prefetch({ id });
-    }
-  }, [ctx, roomListQuery.data?.pages]);
 
   const pageLength = roomListQuery.data?.pages.map((page) => page.items.length);
 
@@ -72,6 +64,20 @@ const RoomList = () => {
                     <Link
                       href={`/room/${item.roomUrl}`}
                       className="group flex items-center rounded-lg bg-gray-50 p-2 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
+                      onMouseEnter={() => {
+                        void ctx.roomList.byRoomUrl.prefetch(
+                          { roomUrl: item.roomUrl },
+                          {
+                            initialData: {
+                              title: "loading....",
+                              description: "loading....",
+                              id: item.id,
+                              roomUrl: item.roomUrl,
+                              userId: item.userId,
+                            },
+                          }
+                        );
+                      }}
                     >
                       <span className="ml-2 flex-1 whitespace-nowrap">
                         {item.title}

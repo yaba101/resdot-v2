@@ -5,19 +5,17 @@ import CopyButton from "@/components/CopyButton";
 import { Input } from "@/components/ui/Input";
 import { buttonVariants } from "@/components/ui/Button";
 import { SideModal } from "@/components/SideModal";
-import RoomSkeleton from "@/components/ui/RoomSkeleton";
 
 const RoomPage = () => {
   const { query } = useRouter();
-  console.log("query id", query.id);
 
-  const { data, isLoading, isFetching } = api.roomList.byRoomUrl.useQuery({
+  const { data, isLoading } = api.roomList.byRoomUrl.useQuery({
     roomUrl: (query.id as string) ?? "",
   });
   if (!data?.roomUrl) return null;
   return (
     <>
-      {isLoading || isFetching ? (
+      {isLoading ? (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-zinc-900 to-stone-900  pb-10"></div>
       ) : (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-zinc-900 to-stone-900  pb-10">
@@ -31,7 +29,6 @@ const RoomPage = () => {
             >
               &larr; {" Back"}
             </Link>
-
           </div>
           <div className="mx-auto mb-4 max-w-sm rounded-lg border border-gray-700 bg-white p-4 shadow-2xl dark:border-gray-800 dark:bg-gray-900">
             <SideModal
