@@ -8,8 +8,6 @@ import { SideModal } from "@/components/SideModal";
 import FeedbacksListCard from "@/components/FeedbacksListCard";
 import { Fragment, useState } from "react";
 import PaginationButtons from "@/components/PaginationButtons";
-// import { Toasting } from "@/components/ui/Toast";
-// import { toast } from "@/components/ui/Toast";
 
 const RoomPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,7 +99,7 @@ const RoomPage = () => {
                   key={item.id}
                   createdAt={item.createdAt}
                   rating={item.star}
-                  userName={item.identity}
+                  userName={item.identity ?? ""}
                 />
               ))}
               {page.items.length !== 0 && (

@@ -5,6 +5,7 @@ import { api } from "@/utils/api";
 import { Loader2 } from "lucide-react";
 import { Input } from "./ui/Input";
 import { Label } from "./ui/Label";
+import { toast } from "./ui/Toast";
 
 type FeedBackReviewProps = {
   title: string;
@@ -50,7 +51,20 @@ const FeedBackReview = ({
     onSettled: () => {
       void ctx.feedback.invalidate();
       setFeedBackMessage("");
-      
+    },
+    onError: () => {
+      toast({
+        message: "Too Many Requests",
+        title: "rate limit",
+        type: "error",
+      });
+    },
+    onSuccess: () => {
+      toast({
+        message: "Too Many Requests",
+        title: "rate limit",
+        type: "error",
+      });
     },
   });
 
