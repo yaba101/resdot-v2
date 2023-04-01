@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { Input } from "./ui/Input";
 import { Label } from "./ui/Label";
 import { toast } from "./ui/Toast";
+import { Check } from "lucide-react";
 
 type FeedBackReviewProps = {
   title: string;
@@ -45,6 +46,7 @@ const FeedBackReview = ({
   const [rating, setRating] = useState(0);
   const [feedBackMessage, setFeedBackMessage] = useState("");
   const [name, setName] = useState<string | undefined>(undefined);
+  const [sent, setSent] = useState(false);
   const ctx = api.useContext();
 
   const { mutate, isLoading: isPosting } = api.feedback.add.useMutation({
@@ -61,89 +63,132 @@ const FeedBackReview = ({
     },
     onSuccess: () => {
       toast({
-        message: "Too Many Requests",
-        title: "rate limit",
-        type: "error",
+        message: "Successfully sent feedback",
+        title: "sent feedback",
+        type: "success",
       });
+      setSent(true);
     },
   });
 
   return (
-    <div className="flex h-screen min-w-fit items-center justify-center ">
-      <div className="border- flex max-w-xl flex-col rounded-xl border border-gray-800 p-8 shadow-lg shadow-zinc-900 dark:bg-gray-900  dark:text-gray-100 lg:p-12">
-        <div className="flex w-full flex-col items-center">
-          <h2 className="text-center text-3xl font-semibold">{title}</h2>
-          <div className="flex flex-col items-center space-y-3 py-6">
-            <span className="text-center">{description}</span>
-            <div className="flex space-x-3 ">
-              <div className="text-center">
-                <ul className="duration-0 flex cursor-pointer space-x-3 ">
-                  {[1, 2, 3, 4, 5].map((index) => (
-                    <li
-                      onMouseEnter={() => setHoverIndex(index)}
-                      key={index}
-                      onMouseLeave={() => setHoverIndex(0)}
-                      onClick={() => setRating(index)}
-                    >
-                      <Star yellow={index <= hoverIndex || index <= rating} />
-                    </li>
-                  ))}
-                </ul>
+    <>
+      {sent ? (
+        <ThankYou />
+      ) : (
+        <>
+          <div className="flex h-screen min-w-fit items-center justify-center ">
+            <div className="border- flex max-w-xl flex-col rounded-xl border border-gray-800 p-8 shadow-lg shadow-zinc-900 dark:bg-gray-900  dark:text-gray-100 lg:p-12">
+              <div className="flex w-full flex-col items-center">
+                <h2 className="text-center text-3xl font-semibold">{title}</h2>
+                <div className="flex flex-col items-center space-y-3 py-6">
+                  <span className="text-center">{description}</span>
+                  <div className="flex space-x-3 ">
+                    <div className="text-center">
+                      <ul className="duration-0 flex cursor-pointer space-x-3 ">
+                        {[1, 2, 3, 4, 5].map((index) => (
+                          <li
+                            onMouseEnter={() => setHoverIndex(index)}
+                            key={index}
+                            onMouseLeave={() => setHoverIndex(0)}
+                            onClick={() => setRating(index)}
+                          >
+                            <Star
+                              yellow={index <= hoverIndex || index <= rating}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex w-full flex-col">
+                  <Label htmlFor="name" className="mb-2 text-left text-white">
+                    Name
+                  </Label>
+                  <Input
+                    placeholder="Anonymous"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="mb-4"
+                  />
+                  <Label
+                    htmlFor="message"
+                    className="mb-2 text-left text-white"
+                  >
+                    Message
+                  </Label>
+                  <Textarea
+                    value={feedBackMessage}
+                    onChange={(e) => setFeedBackMessage(e.target.value)}
+                    rows={5}
+                    placeholder="Message..."
+                    className="resize-none rounded-md p-4 dark:bg-gray-900 dark:text-gray-100"
+                  />
+                  <Button
+                    disabled={
+                      isPosting || feedBackMessage === "" || rating === 0
+                    }
+                    size="lg"
+                    className={buttonVariants({
+                      variant: "default",
+                      className:
+                        "my-8 rounded-md py-4 font-semibold dark:bg-violet-400 dark:text-gray-900",
+                    })}
+                    onClick={() => {
+                      void mutate({
+                        identity: name ?? "Anonymous",
+                        message: feedBackMessage,
+                        title: title,
+                        description: description,
+                        star: String(rating),
+                        roomUrl: roomUrl,
+                      });
+                    }}
+                  >
+                    {isPosting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending feedback
+                      </>
+                    ) : (
+                      <>Leave feedback</>
+                    )}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-          <div className="flex w-full flex-col">
-            <Label htmlFor="name" className="mb-2 text-left text-white">
-              Name
-            </Label>
-            <Input
-              placeholder="Anonymous"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="mb-4"
-            />
-            <Label htmlFor="message" className="mb-2 text-left text-white">
-              Message
-            </Label>
-            <Textarea
-              value={feedBackMessage}
-              onChange={(e) => setFeedBackMessage(e.target.value)}
-              rows={5}
-              placeholder="Message..."
-              className="resize-none rounded-md p-4 dark:bg-gray-900 dark:text-gray-100"
-            />
-            <Button
-              disabled={isPosting || feedBackMessage === "" || rating === 0}
-              size="lg"
-              className={buttonVariants({
-                variant: "default",
-                className:
-                  "my-8 rounded-md py-4 font-semibold dark:bg-violet-400 dark:text-gray-900",
-              })}
-              onClick={() => {
-                void mutate({
-                  identity: name ?? "Anonymous",
-                  message: feedBackMessage,
-                  title: title,
-                  description: description,
-                  star: String(rating),
-                  roomUrl: roomUrl,
-                });
-              }}
-            >
-              {isPosting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending feedback
-                </>
-              ) : (
-                <>Leave feedback</>
-              )}
-            </Button>
+        </>
+      )}
+    </>
+  );
+};
+export default FeedBackReview;
+
+const ThankYou = () => {
+  return (
+    <div className="flex h-screen min-w-fit items-center justify-center overflow-hidden ">
+      <div className="border- flex max-w-xl flex-col rounded-xl border border-gray-800 p-8 shadow-2xl shadow-gray-800 dark:bg-zinc-900  dark:text-gray-100 lg:p-12">
+        <div className="flex w-full flex-col items-center">
+          <h2 className="text-center text-3xl font-semibold"></h2>
+          <div className="flex flex-col items-center space-y-3 py-6">
+            <span className="text-center">
+              <Check className=" text-green-800" size={40} />
+            </span>
+            <div className="flex flex-col space-x-3">
+              <h5 className="mb-2 text-center text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Thank You!
+              </h5>
+
+              <p className="font-medium text-gray-700 dark:text-gray-400">
+                Your feedback is always welcome!
+              </p>
+            </div>
           </div>
+          <div className="flex w-full flex-col"></div>
         </div>
       </div>
     </div>
   );
 };
-export default FeedBackReview;
