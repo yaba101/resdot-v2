@@ -1,4 +1,5 @@
 import { TRPCError } from '@trpc/server'
+
 /**
  * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
  * 1. You want to modify request context (see Part 1).
@@ -45,6 +46,8 @@ import { prisma } from "@/server/db"
  */
 export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const { req } = opts
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+
   const currentSession = getAuth(req)
   const currentUserId = currentSession.userId
   const username = currentSession?.user?.username
@@ -53,7 +56,8 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   return {
     prisma,
     currentUserId,
-    username
+    username,
+
   }
 }
 
@@ -68,6 +72,7 @@ import { initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import { ZodError } from "zod"
 import { getAuth } from '@clerk/nextjs/server'
+
 
 export const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
@@ -103,8 +108,15 @@ export const createTRPCRouter = t.router
  * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
+ * 
+
  */
+
+
+
+
 export const publicProcedure = t.procedure
+
 const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
   if (!ctx.currentUserId) {
     throw new TRPCError({ code: 'UNAUTHORIZED' })

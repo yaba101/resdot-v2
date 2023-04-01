@@ -45,10 +45,12 @@ const FeedBackReview = ({
   const [feedBackMessage, setFeedBackMessage] = useState("");
   const [name, setName] = useState<string | undefined>(undefined);
   const ctx = api.useContext();
+
   const { mutate, isLoading: isPosting } = api.feedback.add.useMutation({
     onSettled: () => {
       void ctx.feedback.invalidate();
       setFeedBackMessage("");
+      
     },
   });
 

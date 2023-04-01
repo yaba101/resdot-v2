@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { z } from "zod";
 import { useRouter } from "next/router";
 // import NextError from "next/error";
 // import Rating from "@/components/Rating";
 // import Thanks from "@/components/Thank";
-import { useState } from "react";
 import { api } from "@/utils/api";
 import FeedBackReview from "@/components/Review";
 
@@ -19,12 +19,8 @@ import FeedBackReview from "@/components/Review";
 // type FormData = z.infer<typeof FeedbackSchema>;
 
 const FeedbackPage = () => {
-  const [content, setContent] = useState<boolean>(true);
-  const [star, setStar] = useState<string>("0");
-  const [identity, setIdentity] = useState("");
-
   const id = useRouter().query.slug as string;
-  const ctx = api.useContext();
+
   // const {
   //   mutate,
   //   isLoading: isCreating,
