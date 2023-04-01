@@ -12,11 +12,11 @@ type FeedbacksListCardProps = {
 const FeedbacksListCard = ({
   message,
   rating,
-  userName = "Anonymous",
+  userName,
   createdAt,
 }: FeedbacksListCardProps) => {
   return (
-    <div className="container mx-auto flex w-full max-w-lg flex-col divide-y divide-gray-700 rounded-md border  border-gray-400 bg-transparent bg-gradient-to-t from-zinc-900 via-zinc-900 to-zinc-900 p-6 shadow-lg shadow-slate-800 dark:text-gray-100">
+    <div className="container mx-auto mb-4 flex w-full max-w-lg flex-col divide-y divide-gray-700 rounded-md  border border-gray-400 bg-transparent bg-gradient-to-t from-zinc-900 via-zinc-900 to-zinc-900 p-6 shadow-lg shadow-slate-800 dark:text-gray-100">
       <div className="flex justify-between p-4">
         <div className="flex space-x-4">
           {/* <div>
@@ -28,9 +28,10 @@ const FeedbacksListCard = ({
           </div> */}
           <div>
             <h4 className="font-bold">{userName}</h4>
-            <span className="text-xs dark:text-gray-400">
-              {format(createdAt, "h:mm a")}
-            </span>
+            <div className="flex space-x-4 text-sm dark:text-gray-400">
+              <span>{format(createdAt, "dd MMM yyyy")}</span>
+              <span>{format(createdAt, "h:mm a")}</span>
+            </div>
           </div>
         </div>
         <div className="flex items-center space-x-2 dark:text-yellow-500">

@@ -3,6 +3,8 @@ import { Textarea } from "@/components/ui/TextArea";
 import Button, { buttonVariants } from "@/components/ui/Button";
 import { api } from "@/utils/api";
 import { Loader2 } from "lucide-react";
+import { Input } from "./ui/Input";
+import { Label } from "./ui/Label";
 
 type FeedBackReviewProps = {
   title: string;
@@ -41,6 +43,7 @@ const FeedBackReview = ({
   const [hoverIndex, setHoverIndex] = useState(0);
   const [rating, setRating] = useState(0);
   const [feedBackMessage, setFeedBackMessage] = useState("");
+  const [name, setName] = useState<string | undefined>(undefined);
   const ctx = api.useContext();
   const { mutate, isLoading: isPosting } = api.feedback.add.useMutation({
     onSettled: () => {
@@ -50,8 +53,8 @@ const FeedBackReview = ({
   });
 
   return (
-    <div className="flex h-screen min-w-fit items-center justify-center">
-      <div className="flex max-w-xl flex-col rounded-xl p-8 shadow-sm dark:bg-gray-900 dark:text-gray-100 lg:p-12">
+    <div className="flex h-screen min-w-fit items-center justify-center ">
+      <div className="border- flex max-w-xl flex-col rounded-xl border border-gray-800 p-8 shadow-lg shadow-zinc-900 dark:bg-gray-900  dark:text-gray-100 lg:p-12">
         <div className="flex w-full flex-col items-center">
           <h2 className="text-center text-3xl font-semibold">{title}</h2>
           <div className="flex flex-col items-center space-y-3 py-6">
@@ -74,6 +77,18 @@ const FeedBackReview = ({
             </div>
           </div>
           <div className="flex w-full flex-col">
+            <Label htmlFor="name" className="mb-2 text-left text-white">
+              Name
+            </Label>
+            <Input
+              placeholder="Anonymous"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="mb-4"
+            />
+            <Label htmlFor="message" className="mb-2 text-left text-white">
+              Message
+            </Label>
             <Textarea
               value={feedBackMessage}
               onChange={(e) => setFeedBackMessage(e.target.value)}
@@ -91,6 +106,7 @@ const FeedBackReview = ({
               })}
               onClick={() => {
                 void mutate({
+                  identity: name ?? "Anonymous",
                   message: feedBackMessage,
                   title: title,
                   description: description,

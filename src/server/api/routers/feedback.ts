@@ -89,7 +89,7 @@ export const feedback = createTRPCRouter({
                 message: z.string(),
                 star: z.string(),
                 roomUrl: z.string(),
-                identity: z.string().optional().default('Anonymous')
+                identity: z.string().optional()
 
             })
         )

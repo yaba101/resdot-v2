@@ -101,6 +101,7 @@ const RoomPage = () => {
                   key={item.id}
                   createdAt={item.createdAt}
                   rating={item.star}
+                  userName={item.identity}
                 />
               ))}
               {page.items.length !== 0 && (

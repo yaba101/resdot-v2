@@ -54,7 +54,7 @@ const FeedbackPage = () => {
 
   return (
     <>
-      <div className=" flex h-screen min-h-screen items-center justify-center bg-gradient-to-t from-zinc-800 via-emerald-900 to-gray-800">
+      <div className=" min-h-screen bg-gradient-to-br from-gray-800 via-zinc-900 to-stone-900  pb-10">
         {/* {content && <Rating onContent={setContent} onButton={setStar} />}
         {!content && <Thanks star={star!} setShowForm={setShowForm} />} */}
         <FeedBackReview
