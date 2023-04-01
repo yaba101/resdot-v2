@@ -45,7 +45,8 @@ const FeedBackReview = ({
   const [hoverIndex, setHoverIndex] = useState(0);
   const [rating, setRating] = useState(0);
   const [feedBackMessage, setFeedBackMessage] = useState("");
-  const [name, setName] = useState<string | undefined>(undefined);
+  const [username, setUserName] = useState<string | undefined>(undefined);
+
   const [sent, setSent] = useState(false);
   const ctx = api.useContext();
 
@@ -70,7 +71,7 @@ const FeedBackReview = ({
       setSent(true);
     },
   });
-
+  console.log(username);
   return (
     <>
       {sent ? (
@@ -108,8 +109,8 @@ const FeedBackReview = ({
                   </Label>
                   <Input
                     placeholder="Anonymous"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={username ?? ""}
+                    onChange={(e) => setUserName(e.target.value)}
                     className="mb-4"
                   />
                   <Label
@@ -137,7 +138,7 @@ const FeedBackReview = ({
                     })}
                     onClick={() => {
                       void mutate({
-                        identity: name ?? "Anonymous",
+                        identity: username ?? "Anonymous",
                         message: feedBackMessage,
                         title: title,
                         description: description,

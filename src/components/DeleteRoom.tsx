@@ -1,6 +1,7 @@
 import { api } from "@/utils/api";
 import { DropdownMenuItem } from "./ui/DropDownMenu";
 import { Trash2 } from "lucide-react";
+import { toast } from "./ui/Toast";
 
 const DeleteRoom = ({ id }: { id: string }) => {
   const ctx = api.useContext();
@@ -8,6 +9,18 @@ const DeleteRoom = ({ id }: { id: string }) => {
   const { mutate: deleteRoom } = api.roomList.delete.useMutation({
     onSuccess: () => {
       void ctx.roomList.invalidate();
+      toast({
+        message: "Successfully delete the room",
+        title: "delete room",
+        type: "success",
+      });
+    },
+    onError: () => {
+      toast({
+        message: "Error occured,try again",
+        title: "can't delete room",
+        type: "error",
+      });
     },
   });
   return (
