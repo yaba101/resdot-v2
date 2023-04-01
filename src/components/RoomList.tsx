@@ -44,6 +44,7 @@ const RoomList = () => {
         setDescription={setDescription}
         actionTitle="Create"
       />
+
       {!roomListQuery.isError ? (
         <>
           <div className="mt-8 rounded-lg border bg-white p-10 shadow-inner shadow-zinc-900 dark:border-gray-700 dark:bg-gray-800 sm:p-6">

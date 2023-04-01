@@ -9,6 +9,7 @@ import {
   ClerkProvider,
   RedirectToSignIn,
 } from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/Toast";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   const { pathname } = useRouter();
@@ -20,6 +21,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       {!isPublic && (
         <>
           <SignedIn>
+            <Toaster position="top-right" />
             <Component {...pageProps} />
           </SignedIn>
           <SignedOut>

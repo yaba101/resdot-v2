@@ -1,5 +1,6 @@
 import { createTRPCRouter } from "@/server/api/trpc"
 import { roomList } from './routers/roomList'
+import { feedback } from './routers/feedback'
 
 
 
@@ -9,7 +10,9 @@ import { roomList } from './routers/roomList'
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
+
   roomList: roomList,
+  feedback: feedback
 
 })
 

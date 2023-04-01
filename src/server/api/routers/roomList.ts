@@ -4,6 +4,7 @@ import { createTRPCRouter, privateProcedure } from "@/server/api/trpc"
 import { Prisma } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 
+
 const defaultRoomListSelect = Prisma.validator<Prisma.RoomListSelect>()({
     id: true,
     username: true,
@@ -105,7 +106,7 @@ export const roomList = createTRPCRouter({
             z.object({
                 id: z.string().cuid().optional(),
                 userId: z.string(),
-                title: z.string().min(1).max(32),
+                title: z.string().min(1).max(52),
                 description: z.string().min(1),
 
             })
@@ -117,7 +118,6 @@ export const roomList = createTRPCRouter({
                     userId: currentUserId,
                     title: input.title,
                     description: input.description,
-
 
                 },
 

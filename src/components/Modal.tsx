@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/TextArea";
 import { api } from "@/utils/api";
 import { useUser } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
+import { toast } from "@/components/ui/Toast";
 
 type ModalProps = {
   title: string;
@@ -36,14 +37,27 @@ export function Modal({
   const ctx = api.useContext();
   const { mutate, isLoading: isCreating } = api.roomList.add.useMutation({
     onSuccess: () => {
-      void ctx.roomList.invalidate();
+      toast({
+        message: "Successfully created!",
+        title: "create new room",
+        type: "success",
+      });
     },
     onSettled: () => {
+      void ctx.roomList.invalidate();
       setTitle("");
       setDescription("");
       setCloseModal(false);
     },
+    onError: () => {
+      toast({
+        message: "Error has occurred,try again!",
+        title: "can't create room",
+        type: "error",
+      });
+    },
   });
+  console.log({ closeModal });
   return (
     <>
       <Dialog>
@@ -52,9 +66,8 @@ export function Modal({
             {actionTitle} Room
           </Button>
         </DialogTrigger>
-        {closeModal ? (
+        {closeModal && (
           <>
-            {" "}
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>{actionTitle}</DialogTitle>
@@ -115,7 +128,7 @@ export function Modal({
               </DialogFooter>
             </DialogContent>
           </>
-        ) : null}
+        )}
       </Dialog>
     </>
   );
