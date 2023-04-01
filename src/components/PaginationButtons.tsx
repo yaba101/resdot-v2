@@ -12,7 +12,7 @@ const PaginationButtons = ({
   maxPage,
 }: PaginationProps) => {
   return (
-    <div className="mt-10 flex justify-around">
+    <div className="mt-10 flex justify-center">
       <button
         onClick={() => {
           setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
