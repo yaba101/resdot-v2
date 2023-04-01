@@ -4,7 +4,8 @@ const config = {
   theme: {
     extend: {},
   },
-  plugins: [],
-};
 
-module.exports = config;
+  plugins: [],
+}
+
+module.exports = config
