@@ -71,7 +71,7 @@ const FeedBackReview = ({
       setSent(true);
     },
   });
-  console.log(username);
+
   return (
     <>
       {sent ? (

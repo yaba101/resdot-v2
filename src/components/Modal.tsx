@@ -57,7 +57,7 @@ export function Modal({
       });
     },
   });
-  console.log({ closeModal });
+
   return (
     <>
       <Dialog>
