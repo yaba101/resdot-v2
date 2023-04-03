@@ -71,7 +71,7 @@ const RoomPage = () => {
               <Input
                 className="mx-auto w-96 shadow-2xl"
                 readOnly
-                value={`https://resdot.vercel.app/feedback/${
+                value={`https://resdot-v2.vercel.app/feedback/${
                   data.roomUrl ?? ""
                 }`}
                 placeholder="This is the roomurl"
@@ -79,7 +79,7 @@ const RoomPage = () => {
               {!isLoading ? (
                 <>
                   <CopyButton
-                    valueToCopy={`https://resdot.vercel.app/feedback/${data.roomUrl}`}
+                    valueToCopy={`https://resdot-v2.vercel.app/feedback/${data.roomUrl}`}
                     className="animate-in fade-in right-11 text-gray-200 duration-300"
                   />
                 </>
