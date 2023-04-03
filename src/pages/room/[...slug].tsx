@@ -12,13 +12,14 @@ import PaginationButtons from "@/components/PaginationButtons";
 const RoomPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { query } = useRouter();
-
+  if (!query.slug) return null;
+  const roomUrl = query?.slug[1] ?? "";
   const { data, isLoading, isError } = api.roomList.byRoomUrl.useQuery({
-    roomUrl: (query.slug as string) ?? "",
+    roomUrl: roomUrl?.toString() ?? "",
   });
   const { data: feedbackData } = api.feedback.list.useInfiniteQuery(
     {
-      roomUrl: (query.slug as string) ?? "",
+      roomUrl: roomUrl,
     },
     {
       getPreviousPageParam(lastPage) {

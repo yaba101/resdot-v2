@@ -34,15 +34,6 @@ export function DropDown({ id }: DropDownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuSeparator />
-        {/* <EditRoom
-          id={id}
-          title={currentTitle}
-          description={currentDescription}
-          setTitle={setCurrentTitle}
-          setDescription={setCurrentDescription}
-          openSideModal={openSideModal}
-          setOpenSideModal={setOpenSideModal}
-        /> */}
         <DeleteRoom id={id} />
       </DropdownMenuContent>
     </DropdownMenu>

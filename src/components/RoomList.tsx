@@ -71,7 +71,9 @@ const RoomList = () => {
                         <div className="flex ">
                           <li className="grow ">
                             <Link
-                              href={`/room/${item.roomUrl}`}
+                              href={`/room/${user?.username ?? ""}/${
+                                item.roomUrl
+                              }`}
                               className="group flex items-center rounded-lg bg-gray-50 p-2 text-base font-bold text-gray-900 hover:bg-gray-100 hover:shadow dark:bg-gray-600 dark:text-white dark:hover:bg-gray-500"
                               onMouseEnter={() => {
                                 void ctx.roomList.byRoomUrl.prefetch(
