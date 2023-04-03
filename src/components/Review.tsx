@@ -105,8 +105,9 @@ const FeedBackReview = ({
                 </div>
                 <div className="flex w-full flex-col">
                   <Label htmlFor="name" className="mb-2 text-left text-white">
-                    Name
+                    {"* "}Name
                   </Label>
+
                   <Input
                     placeholder="Anonymous"
                     value={username ?? ""}

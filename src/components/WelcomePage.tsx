@@ -14,7 +14,7 @@ const WelcomePage = () => {
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl sm:text-xl sm:leading-relaxed">
-            Increase your connection and connect with other for better service.
+            Increase your connection and connect with others for better service.
           </p>
           <div className="mt-8 grid w-full gap-3 sm:inline-flex sm:justify-center">
             {!isSignedIn ? (
