@@ -66,20 +66,21 @@ const RoomPage = () => {
               {data.description}
             </p>
           </div>
-          <div className="relative mx-auto w-96">
-            <div className="z-20 rounded-md shadow-md sm:min-w-0 sm:flex-1">
+          <div className="flex">
+            <div className="mx-auto flex w-96">
               <Input
                 className="mx-auto w-96 shadow-2xl"
                 readOnly
-                value={`feedback/${data.roomUrl ?? ""}`}
+                value={`https://resdot.vercel.app/feedback/${
+                  data.roomUrl ?? ""
+                }`}
                 placeholder="This is the roomurl"
               />
               {!isLoading ? (
                 <>
                   <CopyButton
-                    valueToCopy={`feedback/${data.roomUrl}`}
-                    className="animate-in fade-in absolute inset-y-0 top-0 right-0 duration-300"
-                    type="button"
+                    valueToCopy={`https://resdot.vercel.app/feedback/${data.roomUrl}`}
+                    className="animate-in fade-in right-11 text-gray-200 duration-300"
                   />
                 </>
               ) : null}

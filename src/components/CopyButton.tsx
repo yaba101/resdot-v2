@@ -18,10 +18,10 @@ const CopyButton = ({ className, valueToCopy, ...props }: CopyButtonProps) => {
           type: "success",
         });
       }}
-      variant="ghost"
+      variant="link"
       className={className}
     >
-      <CopyIcon className="h-5 w-5" />
+      <CopyIcon className="h-5 w-5  text-gray-200" />
     </Button>
   );
 };
