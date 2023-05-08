@@ -38,7 +38,7 @@ const RoomPage = () => {
   return (
     <>
       {isLoading ? (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-zinc-900 to-stone-900  pb-10"></div>
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-zinc-900 to-stone-900  pb-10" />
       ) : (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-zinc-900 to-stone-900  pb-10">
           <div className="pt-10 pl-10">
@@ -62,9 +62,9 @@ const RoomPage = () => {
               {data.title}
             </h1>
             <hr className="p-2 text-white" />
-            <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
+            <pre className="mb-3 font-normal text-gray-500 dark:text-gray-400">
               {data.description}
-            </p>
+            </pre>
           </div>
           <div className="flex">
             <div className="mx-auto flex w-96">
@@ -87,7 +87,7 @@ const RoomPage = () => {
             </div>
           </div>
 
-          <div className="p-3"></div>
+          <div className="p-3" />
           {feedbackData?.pages.map((page, index) => (
             <Fragment key={page.items[0]?.id || index}>
               {page.items.length === 0 && (

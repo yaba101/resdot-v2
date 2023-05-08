@@ -32,7 +32,7 @@ export function Modal({
   setDescription,
   setTitle,
 }: ModalProps) {
-  const [closeModal, setCloseModal] = useState<boolean>(false);
+  const [closeModal, setCloseModal] = useState(false);
   const { user } = useUser();
   const ctx = api.useContext();
   const { mutate, isLoading: isCreating } = api.roomList.add.useMutation({
