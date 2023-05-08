@@ -1,42 +1,35 @@
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 const Header = () => {
-  const { user } = useUser();
-
   return (
     <div className=" overflow-auto bg-slate-900">
-      <div className="container mx-auto flex flex-col items-start justify-between p-10 px-6 lg:flex-row lg:items-center">
-        <div className="flex flex-col items-start lg:flex-row lg:items-center">
-          <div className="flex items-center">
-            <div>
-              <h5 className="text-md mb-1 font-bold leading-7 text-white">
-                {user?.fullName}
-              </h5>
+      <header className="z-1 flex w-full flex-wrap border-b bg-white py-6 text-sm dark:border-gray-700 dark:bg-slate-900 sm:flex-nowrap sm:justify-start sm:py-4">
+        <nav className="mx-auto flex w-full max-w-7xl basis-full items-center px-4 sm:px-6 lg:px-8">
+          <div className="mr-5 text-2xl font-bold text-gray-50 md:mr-8 ">
+            Resdot
+          </div>
+          <span className="text-base font-extrabold text-white">|</span>
+          <div className="ml-5 text-xl font-medium text-gray-300">
+            Dashboard
+          </div>
+
+          <div className="ml-auto flex w-full items-center justify-end sm:order-3 sm:justify-between sm:gap-x-3">
+            <div className="relative"></div>
+
+            <div className="flex flex-row items-center justify-end gap-2">
+              <div className=" relative inline-flex">
+                <SignedIn>
+                  {/* Mount the UserButton component */}
+                  <UserButton afterSignOutUrl="/" />
+                </SignedIn>
+                <SignedOut>
+                  {/* Signed out users get sign in button */}
+                  <SignInButton />
+                </SignedOut>
+              </div>
             </div>
           </div>
-          <div className="ml-0 mt-6  lg:ml-20 lg:mt-0">
-            <h4 className="mb-2 text-2xl font-bold leading-tight text-white">
-              Dashboard
-            </h4>
-          </div>
-        </div>
-        <div className="mt-6 lg:mt-0">
-          <SignedIn>
-            {/* Mount the UserButton component */}
-            <UserButton afterSignOutUrl="/" />
-          </SignedIn>
-          <SignedOut>
-            {/* Signed out users get sign in button */}
-            <SignInButton />
-          </SignedOut>
-        </div>
-      </div>
-      <div className="border-b border-b-amber-400"></div>
+        </nav>
+      </header>
     </div>
   );
 };
