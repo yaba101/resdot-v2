@@ -83,11 +83,12 @@ const FeedBackReview = ({
               <div className="flex w-full flex-col items-center">
                 <h2 className="text-center text-3xl font-semibold">{title}</h2>
                 <div className="flex flex-col items-center space-y-3 py-6">
-                  <span className="text-center">{description}</span>
+                  <pre className="text-center">{description}</pre>
                   <div className="flex space-x-3 ">
                     <div className="text-center">
                       <ul className="duration-0 flex cursor-pointer space-x-3 ">
                         {[1, 2, 3, 4, 5].map((index) => (
+                          // rome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
                           <li
                             onMouseEnter={() => setHoverIndex(index)}
                             key={index}
@@ -173,7 +174,7 @@ const ThankYou = () => {
     <div className="no-scrollbar flex h-screen min-w-fit items-center justify-center">
       <div className="border- flex max-w-xl flex-col rounded-xl border border-gray-800 p-8 shadow-2xl shadow-gray-800 dark:bg-zinc-900  dark:text-gray-100 lg:p-12">
         <div className="flex w-full flex-col items-center">
-          <h2 className="text-center text-3xl font-semibold"></h2>
+          <h2 className="text-center text-3xl font-semibold" />
           <div className="flex flex-col items-center space-y-3 py-6">
             <span className="text-center">
               <Check className=" text-green-800" size={40} />
@@ -188,7 +189,7 @@ const ThankYou = () => {
               </p>
             </div>
           </div>
-          <div className="flex w-full flex-col"></div>
+          <div className="flex w-full flex-col" />
         </div>
       </div>
     </div>
