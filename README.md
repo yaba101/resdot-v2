@@ -12,6 +12,6 @@
 
 ### ✅ PlanetScale
 
-### ✅ Clerk for user management
+### ✅ Clerk
 
-### ✅ Shadcn UI Component
+### ✅ Shadcn UI 
